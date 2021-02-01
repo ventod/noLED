@@ -9,7 +9,7 @@ PSP_FW_VERSION	= 661
 
 PRX_EXPORTS		= exports.exp
 
-LIBS			= -lpspsystemctrl_kernel  -lpsppower
+LIBS			= -lpspsystemctrl_kernel -lpsppower
 LDFLAGS			= -nostartfiles
 
 CFLAGS			= -Os -G0 -Wall -Wextra
