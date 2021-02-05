@@ -15,9 +15,9 @@
 		_sw(0x00001021, a + 4);         \
 	} while (0) // from utils.h procfw
 
-#define SCE_ERROR_OK 0					   // from errors.h uOFW
-#define POWER_CALLBACK_MAX_SLOTS_KERNEL 31 // from power.c uOFW
-#define SCE_LED_MODE_OFF 0				   // from led.h uOFW
+#define SCE_ERROR_OK 0					     // from errors.h uOFW
+#define POWER_CALLBACK_TOTAL_SLOTS_KERNEL 32 // from power.h uOFW
+#define SCE_LED_MODE_OFF 0				     // from led.h uOFW
 
 typedef struct
 {
@@ -72,11 +72,12 @@ int module_start(SceSize args UNUSED, void *argp UNUSED)
 	if (cbid)
 	{
 		s32 status = !SCE_ERROR_OK;
-		for (s32 slot = POWER_CALLBACK_MAX_SLOTS_KERNEL; slot >= 0 && status != SCE_ERROR_OK; --slot)
+		for (s32 slot = 0; slot < POWER_CALLBACK_TOTAL_SLOTS_KERNEL && status != SCE_ERROR_OK; ++slot)
 		{
 			status = scePowerRegisterCallback(slot, cbid);
 		}
 	}
+
 	return NO_ERROR;
 }
 
