@@ -71,13 +71,11 @@ int module_start(SceSize args UNUSED, void *argp UNUSED)
 	SceUID cbid = sceKernelCreateCallback("noLedPower", noLedPower, NULL);
 	if (cbid)
 	{
-		s32 status = !SCE_ERROR_OK;
-		for (s32 slot = 0; slot < POWER_CALLBACK_TOTAL_SLOTS_KERNEL && status != SCE_ERROR_OK; ++slot)
-		{
+		s32 status, slot = 0;
+		do {
 			status = scePowerRegisterCallback(slot, cbid);
-		}
+		} while (++slot < POWER_CALLBACK_TOTAL_SLOTS_KERNEL && status != SCE_ERROR_OK);
 	}
-
 	return NO_ERROR;
 }
 
